@@ -8,5 +8,13 @@
     <%= label_tag :last_name %>
     <%= text_field_tag :last_name, @contact.last_name %>
   </div>
+  <div>
+    <%= label_tag :email %>
+    <%= text_field_tag :email, @contact.email %>
+  </div>
+  <div>
+    <%= label_tag :phone_number %>
+    <%= text_field_tag :phone_number, @contact.phone_number %>
+  </div>
   <%= submit_tag "Submit" %>
 <% end %>
