@@ -11,7 +11,7 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(first_name: params[:first_name], last_name: params[:last_name])
     @contact.save
-    render 'create.html.erb'
+    redirect_to "/contacts/#{@contact.id}"
   end
 
   def show 
@@ -30,12 +30,12 @@ class ContactsController < ApplicationController
     # @contact.last_name = params[:last_name]
     # @contact.save
     @contact.update(first_name: params[:first_name], last_name: params[:last_name])
-    render 'update.html.erb'
+    redirect_to "/contacts/#{@contact.id}"
   end
 
   def destroy
     @contact = Contact.find_by(id: params[:id])
     @contact.destroy
-    render 'destroy.html.erb'
+    redirect_to "/contacts"
   end
 end
