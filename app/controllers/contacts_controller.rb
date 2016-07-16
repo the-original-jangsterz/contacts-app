@@ -9,12 +9,16 @@ class ContactsController < ApplicationController
   end
 
   def create
+    latlong = Geocoder.coordinates(params[:address])
     @contact = Contact.new(
       first_name: params[:first_name],
       middle_name: params[:middle_name],
       last_name: params[:last_name],
       email: params[:email],
       phone_number: params[:phone_number],
+      address: params[:address],
+      latitude: latlong[0],
+      longitude: latlong[1],
       bio: params[:bio]
     )
     @contact.save
@@ -32,6 +36,7 @@ class ContactsController < ApplicationController
   end
 
   def update
+    latlong = Geocoder.coordinates(params[:address])
     @contact = Contact.find_by(id: params[:id])
     @contact.update(
       first_name: params[:first_name],
@@ -39,6 +44,9 @@ class ContactsController < ApplicationController
       last_name: params[:last_name],
       email: params[:email],
       phone_number: params[:phone_number],
+      address: params[:address],
+      latitude: latlong[0],
+      longitude: latlong[1],
       bio: params[:bio]
     )
     redirect_to "/contacts/#{@contact.id}"
