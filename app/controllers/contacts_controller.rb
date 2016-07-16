@@ -14,7 +14,8 @@ class ContactsController < ApplicationController
       middle_name: params[:middle_name],
       last_name: params[:last_name],
       email: params[:email],
-      phone_number: params[:phone_number]
+      phone_number: params[:phone_number],
+      bio: params[:bio]
     )
     @contact.save
     redirect_to "/contacts/#{@contact.id}"
@@ -37,7 +38,8 @@ class ContactsController < ApplicationController
       middle_name: params[:middle_name],
       last_name: params[:last_name],
       email: params[:email],
-      phone_number: params[:phone_number]
+      phone_number: params[:phone_number],
+      bio: params[:bio]
     )
     redirect_to "/contacts/#{@contact.id}"
   end
