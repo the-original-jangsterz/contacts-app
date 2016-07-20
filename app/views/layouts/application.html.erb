@@ -8,6 +8,19 @@
 </head>
 <body>
 
+<div>
+  <a href="/signup">Signup</a>
+  <a href="/login">Login</a>
+  <a href="/logout">Logout</a>
+</div>
+
+<% flash.each do |name, message| %>
+  <div class="alert alert-<%= name %> alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</span><span class="sr-only">Close</span></button>
+    <%= message.html_safe %>  
+  </div>
+<% end %>
+
 <%= yield %>
 
 </body>
