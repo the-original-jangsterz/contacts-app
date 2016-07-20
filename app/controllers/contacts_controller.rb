@@ -1,6 +1,19 @@
 class ContactsController < ApplicationController
   def index
-    @contacts = Contact.all
+    # STRAIGHT UP RUBY
+    # all_contacts = Contact.all
+    # @contacts = []
+    # all_contacts.each do |contact|
+    #   if contact.user_id == current_user.id
+    #     @contacts << contact
+    #   end
+    # end
+
+    # STRAIGHT UP ACTIVE RECORD
+    # @contacts = Contact.where(user_id: current_user.id)
+
+    # STRAIGHT UP RAILS ASSOCIATIONS
+    @contacts = current_user.contacts
     render 'index.html.erb'
   end
 
@@ -19,7 +32,8 @@ class ContactsController < ApplicationController
       address: params[:address],
       latitude: latlong[0],
       longitude: latlong[1],
-      bio: params[:bio]
+      bio: params[:bio],
+      user_id: current_user.id
     )
     @contact.save
     redirect_to "/contacts/#{@contact.id}"
