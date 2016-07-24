@@ -4,6 +4,7 @@
 <p><%= @contact.phone_number %></p>
 <p><%= @contact.address %></p>
 <p><%= @contact.bio %></p>
+<p>Groups: <%= @contact.groups.pluck(:name).join(', ') %></p>
 <div>
   <a href="/contacts">Go back to all contacts</a>
 </div>
