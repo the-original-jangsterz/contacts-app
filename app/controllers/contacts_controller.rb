@@ -14,7 +14,12 @@ class ContactsController < ApplicationController
 
     # STRAIGHT UP RAILS ASSOCIATIONS
     if current_user
-      @contacts = current_user.contacts
+      if params[:group_id]
+        selected_group = Group.find_by(id: params[:group_id])
+        @contacts = selected_group.contacts.where(user_id: current_user.id)
+      else
+        @contacts = current_user.contacts
+      end
       render 'index.html.erb'
     else
       flash[:warning] = "You must be logged in to see this page!"

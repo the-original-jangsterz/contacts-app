@@ -17,6 +17,10 @@
   <% end %>
 </div>
 
+<% Group.all.each do |group| %>
+  <a href="/contacts?group_id=<%= group.id %>"><%= group.name %></a>
+<% end %>
+
 <% flash.each do |name, message| %>
   <div class="alert alert-<%= name %> alert-dismissible fade in" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</span><span class="sr-only">Close</span></button>
