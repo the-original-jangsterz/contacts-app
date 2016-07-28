@@ -28,11 +28,19 @@ class ContactsController < ApplicationController
   end
 
   def new
+    @contact = Contact.new
     render 'new.html.erb'
   end
 
   def create
     latlong = Geocoder.coordinates(params[:address])
+    if latlong
+      computed_latitude = latlong[0]
+      computed_longitude = latlong[1]
+    else
+      computed_latitude = nil
+      computed_longitude = nil
+    end
     @contact = Contact.new(
       first_name: params[:first_name],
       middle_name: params[:middle_name],
@@ -40,13 +48,16 @@ class ContactsController < ApplicationController
       email: params[:email],
       phone_number: params[:phone_number],
       address: params[:address],
-      latitude: latlong[0],
-      longitude: latlong[1],
+      latitude: computed_latitude,
+      longitude: computed_longitude,
       bio: params[:bio],
       user_id: current_user.id
     )
-    @contact.save
-    redirect_to "/contacts/#{@contact.id}"
+    if @contact.save
+      redirect_to "/contacts/#{@contact.id}"
+    else
+      render 'new.html.erb'
+    end
   end
 
   def show 
@@ -61,19 +72,29 @@ class ContactsController < ApplicationController
 
   def update
     latlong = Geocoder.coordinates(params[:address])
+    if latlong
+      computed_latitude = latlong[0]
+      computed_longitude = latlong[1]
+    else
+      computed_latitude = nil
+      computed_longitude = nil
+    end
     @contact = Contact.find_by(id: params[:id])
-    @contact.update(
+    if @contact.update(
       first_name: params[:first_name],
       middle_name: params[:middle_name],
       last_name: params[:last_name],
       email: params[:email],
       phone_number: params[:phone_number],
       address: params[:address],
-      latitude: latlong[0],
-      longitude: latlong[1],
+      latitude: computed_latitude,
+      longitude: computed_longitude,
       bio: params[:bio]
     )
-    redirect_to "/contacts/#{@contact.id}"
+      redirect_to "/contacts/#{@contact.id}"
+    else
+      render 'edit.html.erb'
+    end
   end
 
   def destroy

@@ -1,4 +1,15 @@
 <h1>Edit a contact</h1>
+<% if @contact.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+ 
+    <ul>
+    <% @contact.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
 <%= form_tag "/contacts/#{@contact.id}", method: :patch do %>
   <div>
     <%= label_tag :first_name %>
