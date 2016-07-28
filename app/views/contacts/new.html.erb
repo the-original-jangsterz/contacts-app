@@ -1,15 +1,2 @@
 <h1>Create a contact</h1>
-<% if @contact.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
- 
-    <ul>
-    <% @contact.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-<%= form_tag '/contacts', method: :post do %>
-  <%= render "form" %>
-<% end %>
+<%= render "form", url: '/contacts', verb: :post %>
